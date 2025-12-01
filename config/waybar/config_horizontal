@@ -1,0 +1,160 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "mode": "dock",
+    "exclusive": true,
+    "passtrough": false,
+    "gtk-layer-shell": true,
+    "height": 0,
+    "name": "horBar",
+    "reload_style_on_change": true,
+
+    "modules-left": [
+		"custom/split",
+    		"custom/media"
+    ],
+
+    "modules-center": [
+		"niri/window"
+    ],
+
+    "modules-right": [
+		"custom/cpuhistory",
+		"pulseaudio",
+		"tray",
+		"battery",
+		"clock",
+		"niri/workspaces",
+    		"custom/updates",
+		"custom/split"
+    ],
+
+    "group/left": {
+    	"orientation": "inherit",
+	"drawer": {
+		"transition-duration": 500,
+		"transition-left-to-right": false,
+		"click-to-reveal": true,
+	},
+	"modules": [
+		"custom/updates",
+		"tray",
+	]
+    },
+
+    "tray": {
+        "icon-size": 14,
+	"show-passive-items": true,
+        "spacing": 16,
+	"reverse-direction": true,
+	"smooth-scrolling-threshold": 2
+    },
+
+    "wlr/taskbar": {
+    	"tooltip": true,
+	"tooltip-format": "{title}",
+	"on-click": "activate",
+	"on-click-middle": "close",
+	"icon-size": 10,
+	"format": "{icon}"
+    },
+
+    "niri/window": {
+    	"format": "{app_id}"
+    },
+
+    "niri/workspaces": {
+    	"format":  "{index}",
+	"format-icons": {
+		"default": ""
+	}
+    },
+
+    "clock": {
+        "format": "{:%H.%M <span size='8pt'>  \n%a  %b  %d</span>}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "month",
+			"weeks-pos": "",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span size='15pt'><b>/// {}\n</b></span>", 
+				"days": "<span size='12pt'><b>{}</b></span>", 
+				"weeks": "<span size='12pt'><b>{}</b></span>", 
+				"weekdays": "<span size='12pt'><b>{}</b></span>", 
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+		},
+	"actions": {
+		"on-scroll-up": "shift_down",
+		"on-scroll-down": "shift_up"
+	}
+    },
+
+    "pulseaudio": {
+        "format": "{icon} <span size='8pt'>{volume}%</span>",
+        "tooltip": true,
+	"tooltip-format": "DEVICE: {desc}",
+        "format-muted": "<span color='#B7416E'>  􀊣   <span size='8pt'>{volume}%</span></span>",
+        "on-click": "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi",
+        "on-scroll-up": "pamixer -i 2",
+        "on-scroll-down": "pamixer -d 2",
+        "scroll-step": 2,
+	"reverse-scrolling": true,
+	"format-icons": ["  􀊡  ", "  􀊥  ", "  􀊧  ", "  􀊩  "]
+    },
+
+    "network": {
+	"format-wifi": "<span color='#c9b03e'>{essid}</span>",
+	"format-ethernet": "<span color='#c9b03e'>Wired</span>",
+	"tooltip-format-wifi": "接続先\t\t: {essid}\n電波強度\t: {signaldBm}\n\n識別番号\t: {ipaddr}\n門先\t\t: {gwaddr}",
+	"tooltip-format-ethernet": "IFNAME: {ifname}\nADDRESS: {ipaddr}",
+	"format-disconnected": "<span color='#B7416E'>N/A</span>",
+	"on-click": "nm-connection-editor"
+    },
+
+    "custom/updates": {
+    	"format": "{icon} <span size='8pt'>{text}</span>",
+	"return-type": "json",
+	"format-icons": {
+		"has-updates": "<span color='#c9b03e'>  􀌖  </span>",
+		"updated": ""
+	},
+	"exec-if": "which waybar-module-pacman-updates",
+	"exec": "waybar-module-pacman-updates --no-zero-output --color-semver-updates --tooltip-align-columns --no-aur"
+    }, 
+
+    "custom/cpuhistory": {
+    	"exec": "~/.config/waybar/scripts/cpu_history.py -d 30",
+	"format": "{}",
+	"interval": 1,
+	"return-type": "json",
+	"on-click": "~/.config/waybar/scripts/cpu_history.py toggle"
+    },
+
+    "custom/split": {
+    	"format": "<span color='#404042'> </span>",
+	"tooltip": false
+    },
+
+    "custom/media": {
+    	"format": "{text}",
+	"exec": "~/.config/waybar/scripts/titleget",
+	"interval": 1,
+	"return-type": "json"
+    },
+
+    "battery": {
+    	"bat": "BAT0",
+	"interval": 30,
+	"states": {
+		"default": 100,
+		"warning": 95,
+		"critical": 30
+	},
+	"format": "",
+	"format-charging": "",
+	"format-discharging": "{icon} {capacity}%",
+	"format-icons": ["  􀛪  ", "  􀛩  ", "  􀛨  "]
+    }
+}

@@ -1,0 +1,168 @@
+* {
+    	font-size: 12px;
+    	border: none;
+    	/* font-family: EnvyCodeR Nerd Font Mono; */
+    	/* font-family: UDEV Gothic HSLG; */
+    	font-family: SF Pro Display;
+    	/* font-style: oblique; */
+    	font-weight: Bold;
+    	min-height: 0;
+    	border-radius: 0px;
+    	padding: 1px;
+}
+
+window#waybar {
+	/* border-radius: 6px 6px 0px 0px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #404042; */
+	margin: 10px;
+    	color: @theme_fg_color;
+    	background: #000000;
+}
+
+window#waybar.battery-warning {
+	background: #B7416E;
+}
+
+tooltip {
+    	background: @theme_bg_color;
+}
+
+#workspaces {
+	margin: 6px;
+	border-style: dotted;
+	border-width: 2px;
+	border-color: #404042;
+	border-radius: 10px;
+}
+
+#workspaces button {
+	font-size: 10px;
+    	color: #000000;
+	border-radius: 7px;
+	transition: background 0.3s ease, color 0.3s ease;
+}
+
+#workspaces button.active {
+    	background: #404042;
+    	color: #c9b03e;
+	box-shadow: 0px 0px 3px #c9b03e;
+}
+
+#workspaces button.focused {
+    	color: #c9b03e;
+    	background: #c9b03e;
+}
+
+#workspaces button.urgent {
+    	color: #f38ba8;
+    	background: @theme_bg_color;
+}
+
+#workspaces button:hover {
+    	background: inherit;
+    	color: #c9b03e;
+	box-shadow: 0px 0px 0px #000000;
+	border-width: 2px;
+	border-color: #404042;
+}
+
+#custom-language,
+#custom-cpuhistory,
+#custom-split,
+#custom-caffeine,
+#custom-weather,
+#window,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#cpu,
+#backlight {
+    	background: @theme_bg_color;
+    	padding: 0px 10px;
+    	margin: 0px;
+}
+
+#tray {
+	background: inherit;
+}
+
+#window {
+	color: #c9b03e;
+	background: inherit;
+	text-shadow: 0px 0px 5px #c9b03e;
+	margin: 6px;
+}
+
+window#waybar.empty #window {
+	background: inherit;
+	box-shadow: 0px 0px 0px #c9b03e;
+}
+
+#network {
+	padding: 2px;
+}
+
+#pulseaudio {
+    	color: @theme_text_color;
+	background: inherit;
+}
+
+#taskbar {
+	margin: 0px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #c9b03e; 
+	border-radius: 6px;
+}
+
+#taskbar button {
+	margin: 0px;
+	padding: 0px;
+}
+
+#taskbar button.active {
+	background: #c9b03e;
+	border-style: solid;
+	border-color: #c9b03e; 
+	border-radius: 3px;
+	box-shadow: 0px 0px 3px #c9b03e;
+}
+
+#taskbar button:hover {
+	background: @theme_bg_color;
+}
+
+#taskbar.empty {
+	background-color: transparent;
+}
+
+#custom-updates {
+	background: inherit;
+	padding: 2px;
+}
+
+#custom-cpuhistory {
+	background: inherit;
+}
+
+#clock {
+	background: inherit;
+	padding: 4px;
+}
+
+#custom-split {
+	background: inherit;
+}
+
+#left {
+	padding: 2px;
+	margin: 2px;
+}
+
+#custom-media {
+	padding: 6px;
+	text-shadow: 0px 0px 10px #ffffff;
+}

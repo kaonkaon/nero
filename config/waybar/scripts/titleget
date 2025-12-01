@@ -1,0 +1,11 @@
+#!/bin/bash
+
+media_status=$(playerctl status)
+media_title=$(playerctl metadata title)
+
+if [ "$media_status" = "Playing" ]
+then 
+	echo "{\"text\":\"  􀊚    $media_title\", \"tooltip\":\"$media_title\"}" 
+else
+	echo "{\"text\":\"\", \"tooltip\":\"\"}" 
+fi
