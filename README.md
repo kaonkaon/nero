@@ -22,4 +22,5 @@
   ```
 
   also look at my [i3 rice](https://github.com/kaonkaon/Type94DotFiles)
+  
   also look at my [Hyprland rice](https://github.com/kaonkaon/hyprland.)
