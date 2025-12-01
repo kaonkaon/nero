@@ -5,7 +5,7 @@
 
   <h4 align ="center">My Niri Rice</a>
   <br><br>
-	<img src="screenshot.png" style="border-radius:8px;" width="700">
+	<img src="https://preview.redd.it/niri-from-hyprland-v0-x3gcpqwylk4g1.png?width=1080&crop=smart&auto=webp&s=104bb1d74eaf6c3d661ed2c81574070a9034b663" style="border-radius:8px;" width="700">
   </h4>
 
 ### Dependencies
