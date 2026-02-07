@@ -14,11 +14,11 @@ sort = false
 idle_threshold = 0
 layer = top
 gap_size = 0
-font = SF Pro Display 12
+font = UDEV Gothic HSLG 12
 line_height = 2
 dmenu = /usr/bin/rofi -no-lazy-grab -dmenu -theme /home/kaon/.config/rofi/kMenu
 browser = /usr/bin/firefox -new-tab
-corner_radius = 8
+corner_radius = 0
 mouse_middle_click = context
 markup = full
 icon_position = off
@@ -26,22 +26,22 @@ close = ctrl+space
 close_all = ctrl+shift+space
 history = ctrl+grave
 context = ctrl+shift+period
-format = "%b\n<small><b>%s</b></small>"
+format = "<small><b>%s</b></small>\n%b"
 
 [urgency_low]
 timeout = 4
-background = "#202020"
+background = "#000000"
 foreground = "#F2F1F0"
-frame_color = "#474747ff"
+frame_color = "#000000"
 
 [urgency_normal]
 timeout = 8
-background = "#202020"
+background = "#000000"
 foreground = "#F2F1F0"
-frame_color = "#474747ff"
+frame_color = "#000000"
 
 [urgency_critical]
 timeout = 0
-background = "#300000"
+background = "#000000"
 foreground = "#F2F1F0"
-frame_color = "#474747ff"
+frame_color = "##f38ba8ff"

@@ -1,0 +1,46 @@
+(deflisten song-title 
+		:initial "初志貫徹"
+		"playerctl metadata --format '{{title}}' --follow || echo '初志貫徹'")
+
+(deflisten song-artist
+		:initial "決めたことを最後までやり通すこと"
+		"playerctl metadata --format '{{artist}}' --follow || echo '決めたことを最後までやり通すこと'")
+
+(defwidget playerinfo-widget []
+	(box 	
+		:orientation "v" 
+		:halign "center" 
+		:space-evenly false
+		:vexpand "false"
+		:hexpand "true"
+	
+		(label 
+			:halign "center"
+			:text song-title 
+			:limit-width 50
+			:class "title"
+		)
+		
+		(label 
+			:halign "center"
+			:text song-artist 
+			:limit-width 25
+			:class "artist"
+		)
+	)
+)
+
+(defwindow playerinfo
+	:monitor 0
+	:geometry 	(geometry 	
+				:x "0px" 
+				:y "880px" 
+				:width "96%" 
+				:height "30px" 
+				:anchor "top center"
+			)
+	:stacking "bg"
+	:exclusive false
+	:wm-ignore true
+	(playerinfo-widget)
+)

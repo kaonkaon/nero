@@ -9,6 +9,7 @@ spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
 spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
 spawn-sh-at-startup "waypaper --restore"
 spawn-at-startup "udiskie"
+spawn-at-startup "eww open playerinfo"
 
 // input device configuration
 input {
@@ -36,16 +37,20 @@ output "eDP-1" {
 
 // layout
 layout {
-	gaps 9
+	// gaps 9
+	gaps 8
 	center-focused-column "on-overflow"
 	always-center-single-column
 	empty-workspace-above-first
+	
 	tab-indicator { 
 		hide-when-single-tab
 		place-within-column
 		position "left"
-		gap 9
-		corner-radius 9
+		gap 4
+		width 10
+		length total-proportion=1.0
+		// corner-radius 9
 	}
 
 	preset-column-widths {
@@ -58,7 +63,8 @@ layout {
 
 	focus-ring {
 		width 2
-		active-color "#404042ff"
+		active-color "#c9b03eff"
+		// active-color "#404042ff"
 		inactive-color "#83858a00"
 	}
 
@@ -73,7 +79,7 @@ layout {
 	}
 
 	insert-hint {
-		        color "#ffc87f80"
+		color "#ffc87f80"
 	}
 }
 
@@ -89,27 +95,15 @@ animations {
 	}
 
 	window-open {
-		duration-ms 600
+		duration-ms 300
 		curve "cubic-bezier" 0.16 1 0.3 1
-
-		custom-shader r"
-		vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
-    		    vec3 coords_tex = niri_geo_to_tex * coords_geo;
-		    vec4 color = texture2D(niri_tex, coords_tex.st);
-		    vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
-		    coords = coords / length(size_geo.xy);
-		    float p = niri_clamped_progress;
-		    if (p * p <= dot(coords, coords))
-		        color = vec4(0.0);
-
-		    return color;
-		}
-		"
+		// spring damping-ratio=0.5 stiffness=300 epsilon=0.0001
 	}
 
 	window-close {
-		duration-ms 600
-		curve "cubic-bezier" 0.16 1 0.3 1
+		// duration-ms 600
+		// curve "cubic-bezier" 0.16 1 0.3 1
+		spring damping-ratio=0.5 stiffness=300 epsilon=0.0001
 	}
 	
 	horizontal-view-movement {
@@ -143,9 +137,9 @@ animations {
 		spring damping-ratio=0.7 stiffness=500 epsilon=0.0001
 	}
 
-	// recent-windows-close {
-	//	spring damping-ratio=0.7 stiffness=500 epsilon=0.0001
- 	// }
+	recent-windows-close {
+		spring damping-ratio=0.7 stiffness=500 epsilon=0.0001
+ 	}
 }
 
 cursor {
@@ -155,7 +149,9 @@ cursor {
 }
 
 environment {
-	LIBVA_DRIVER_NAME "nvidia"
+	MOZ_ENABLE_WAYLAND "1"
+	MOZ_DISABLE_RDD_SANDBOX "1"
+	LIBVA_DRIVER_NAME "iHD"
 	__GLX_VENDOR_LIBRARY_NAME "nvidia"
 	NVD_BACKEND "direct"
 	ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -168,6 +164,13 @@ overview {
 	zoom 0.7
 }
 
+recent-windows {
+	highlight {
+		active-color "#c9b03eff"	
+        	urgent-color "#f38ba8ff"
+	}
+}
+
 
 // ------------
 // WINDOW RULES
@@ -175,7 +178,7 @@ overview {
 window-rule {
 	// open-maximized true
 
-	geometry-corner-radius 6
+	// geometry-corner-radius 6
 	clip-to-geometry true
 }
 
@@ -207,6 +210,7 @@ window-rule {
         	active-color "#f38ba8"
         	inactive-color "#7d0d2d"
     	}
+
 }
 
 window-rule {
@@ -235,7 +239,7 @@ window-rule {
 window-rule {
 	match app-id="^gimp"
 
-	open-maximized true
+	open-maximized-to-edges true
 }
 
 window-rule {
@@ -413,6 +417,9 @@ binds {
 	Mod+Shift+Print { spawn "/home/kaon/.config/rofi/screenshot.sh"; }
 
 	Mod+Shift+V { spawn-sh "cliphist list | rofi -no-lazy-grab -no-fixed-num-lines -lines 5 -dmenu -theme /home/kaon/.config/rofi/minimenu | cliphist decode | wl-copy"; }
+
+	// Make mirrors
+	Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 }
 
 layer-rule {

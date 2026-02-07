@@ -3,43 +3,64 @@
     "position": "bottom",
     "mode": "dock",
     "exclusive": true,
-    "passtrough": false,
+    "passtrough": true,
     "gtk-layer-shell": true,
-    "height": 0,
     "name": "horBar",
     "reload_style_on_change": true,
+    "fixed-center": true,
 
     "modules-left": [
-		"custom/split",
-    		"custom/media"
+		"custom/space",
+		"clock",
+		"custom/space",
+		"battery",
+   	 	"custom/space",
+		"idle_inhibitor",
+   	 	"custom/space",
+		"network",
+   	 	"custom/space",
+		"wireplumber",
+   	 	"custom/space",
+    		"group/left",
     ],
 
     "modules-center": [
-		"niri/window"
     ],
 
     "modules-right": [
-		"custom/cpuhistory",
-		"pulseaudio",
-		"tray",
-		"battery",
-		"clock",
 		"niri/workspaces",
-    		"custom/updates",
-		"custom/split"
+		"custom/space"
     ],
 
     "group/left": {
     	"orientation": "inherit",
 	"drawer": {
 		"transition-duration": 500,
-		"transition-left-to-right": false,
+		"transition-left-to-right": true,
 		"click-to-reveal": true,
 	},
 	"modules": [
 		"custom/updates",
-		"tray",
+		"custom/space",
+		"custom/cpuhistory",
+		"custom/space",
+    		"memory",
+		"custom/space",
+		"disk",
+   	 	"custom/space",
+		"tray"
 	]
+    },
+
+    "disk": {
+    	"interval": 30,
+    	"format": "<span size='6pt'>D使用率</span>\n{percentage_used}%",
+	"path": "/",
+	"unit": "GB"
+    },
+
+    "mpris": {
+    	"format": "<span size='6pt'>再生中</span>\n{title} / {artist}",
     },
 
     "tray": {
@@ -50,28 +71,17 @@
 	"smooth-scrolling-threshold": 2
     },
 
-    "wlr/taskbar": {
-    	"tooltip": true,
-	"tooltip-format": "{title}",
-	"on-click": "activate",
-	"on-click-middle": "close",
-	"icon-size": 10,
-	"format": "{icon}"
-    },
-
-    "niri/window": {
-    	"format": "{app_id}"
-    },
-
     "niri/workspaces": {
-    	"format":  "{index}",
+    	"format": "<span size='6pt'>作業場</span>\n{icon}",
 	"format-icons": {
-		"default": ""
+		"default": "ー",
+		"focused": "使用中",
+		"active": ""
 	}
     },
 
     "clock": {
-        "format": "{:%H.%M <span size='8pt'>  \n%a  %b  %d</span>}",
+        "format": "<span size='6pt'>現在時刻</span>\n{:%H:%M}",
         "tooltip-format": "<tt>{calendar}</tt>",
 		"calendar": {
 			"mode": "month",
@@ -91,34 +101,41 @@
 	}
     },
 
-    "pulseaudio": {
-        "format": "{icon} <span size='8pt'>{volume}%</span>",
+    "pulseaudio":{
+        "format": "<span size='6pt'>音量</span>\n{volume}%",
         "tooltip": true,
-	"tooltip-format": "DEVICE: {desc}",
-        "format-muted": "<span color='#B7416E'>  􀊣   <span size='8pt'>{volume}%</span></span>",
+	"tooltip-format": "マスター：　{desc}",
+        "format-muted": "<span size='6pt'>VOLUME</span>\nMUTE",
         "on-click": "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi",
         "on-scroll-up": "pamixer -i 2",
         "on-scroll-down": "pamixer -d 2",
         "scroll-step": 2,
-	"reverse-scrolling": true,
-	"format-icons": ["  􀊡  ", "  􀊥  ", "  􀊧  ", "  􀊩  "]
+	"reverse-scrolling": true
+    },
+
+    "wireplumber":{
+        "format": "<span size='6pt'>音量</span>\n{volume}%",
+        "format-muted": "<span size='6pt'>音量</span>\n切",
+	"on-click": "helvum",
+    	"max-volume": 150,
+    	"scroll-step": 0.2
     },
 
     "network": {
-	"format-wifi": "<span color='#c9b03e'>{essid}</span>",
-	"format-ethernet": "<span color='#c9b03e'>Wired</span>",
+	"format-wifi": "<span size='6pt'>ネットワーク</span>\n<span color='#c9b03e'>接続中（{ifname}）</span>",
+	"format-ethernet": "<span size='6pt'>ネットワーク</span>\n<span color='#c9b03e'>接続中（{ifname}）</span>",
 	"tooltip-format-wifi": "接続先\t\t: {essid}\n電波強度\t: {signaldBm}\n\n識別番号\t: {ipaddr}\n門先\t\t: {gwaddr}",
 	"tooltip-format-ethernet": "IFNAME: {ifname}\nADDRESS: {ipaddr}",
-	"format-disconnected": "<span color='#B7416E'>N/A</span>",
+	"format-disconnected": "<span size='6pt'>ネットワーク</span>\n<span color='#B7416E'>切</span>",
 	"on-click": "nm-connection-editor"
     },
 
     "custom/updates": {
-    	"format": "{icon} <span size='8pt'>{text}</span>",
+    	"format": "<span size='6pt'>更新</span>\n{icon}",
 	"return-type": "json",
 	"format-icons": {
-		"has-updates": "<span color='#c9b03e'>  􀌖  </span>",
-		"updated": ""
+		"has-updates": "<span color='#B7416E'>有</span>",
+		"updated": "最新"
 	},
 	"exec-if": "which waybar-module-pacman-updates",
 	"exec": "waybar-module-pacman-updates --no-zero-output --color-semver-updates --tooltip-align-columns --no-aur"
@@ -126,22 +143,27 @@
 
     "custom/cpuhistory": {
     	"exec": "~/.config/waybar/scripts/cpu_history.py -d 30",
-	"format": "{}",
+	"format": "<span size='6pt'>C使用率</span>\n{}",
 	"interval": 1,
 	"return-type": "json",
 	"on-click": "~/.config/waybar/scripts/cpu_history.py toggle"
     },
 
-    "custom/split": {
+    "memory": {
+    	"interval": 1,
+	"format": "<span size='6pt'>M使用率</span>\n{}%"
+    },
+
+    "custom/space": {
     	"format": "<span color='#404042'> </span>",
 	"tooltip": false
     },
 
     "custom/media": {
-    	"format": "{text}",
-	"exec": "~/.config/waybar/scripts/titleget",
-	"interval": 1,
-	"return-type": "json"
+	"return-type": "json",
+	"exec": "ScrollMPRIS -s 80 -w 20 --scroll reset --format '{title} / {artist}' --tooltip-format '再生中: {title} - {artist}' --no-icon --no-status-icon --freeze",
+	"escape": true,
+	"on-click": "playerctl play-pause"
     },
 
     "battery": {
@@ -152,9 +174,16 @@
 		"warning": 95,
 		"critical": 30
 	},
-	"format": "",
-	"format-charging": "",
-	"format-discharging": "{icon} {capacity}%",
-	"format-icons": ["  􀛪  ", "  􀛩  ", "  􀛨  "]
+	"format": "<span size='6pt'>電源</span>\n接続中",
+	"format-charging": "<span size='6pt'>電源</span>\n{capacity}%（充電中）",
+	"format-discharging": "<span color='#B7416E'><span size='6pt'>電源</span>\n外部電力供給切断、直ちに外部電力に接続せよ</span>"
+    },
+
+    "idle_inhibitor": {
+    	"format": "<span size='6pt'>カフェイン</span>\n{icon}",
+	"format-icons": {
+		"activated": "<span color='#B7416E'>注入中</span>",
+		"deactivated": "切"
+	}
     }
 }
