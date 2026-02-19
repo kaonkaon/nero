@@ -1,0 +1,25 @@
+#!/bin/bash
+
+workspace_id=$(hyprctl activeworkspace -j | jq -r '.id')
+
+if [ $workspace_id == 1 ]; then
+	echo "零。"
+elif [ $workspace_id == 2 ]; then
+	echo "弌。"
+elif [ $workspace_id == 3 ]; then
+	echo "弍。"
+elif [ $workspace_id == 4 ]; then
+	echo "弎。"
+elif [ $workspace_id == 5 ]; then
+	echo "肆。"
+elif [ $workspace_id == 6 ]; then
+	echo "伍。"
+elif [ $workspace_id == 7 ]; then
+	echo "陸。"
+elif [ $workspace_id == 8 ]; then
+	echo "柒。"
+elif [ $workspace_id == 9 ]; then
+	echo "捌。"
+elif [ $workspace_id == 10 ]; then
+	echo "玖。"
+fi

@@ -1,11 +1,14 @@
 #!/bin/bash
 
-media_status=$(playerctl status)
-media_title=$(playerctl metadata title)
+# Get status and handle the case where no player is running
+media_status=$(playerctl status 2>/dev/null)
+media_title=$(playerctl metadata title 2>/dev/null)
 
-if [ "$media_status" = "Playing" ]
-then 
-	echo "{\"text\":\"  􀊚    $media_title\", \"tooltip\":\"$media_title\"}" 
+if [ "$media_status" = "Playing" ]; then
+    # Escape double quotes in the title to prevent breaking the JSON
+    escaped_title=$(echo "$media_title" | sed 's/"/\\"/g')
+
+    echo "{\"text\":\"<span size='6pt'>NOW PLAYING</span>\n$escaped_title\", \"tooltip\":\"$escaped_title\"}"
 else
-	echo "{\"text\":\"\", \"tooltip\":\"\"}" 
+    echo "{\"text\":\"\", \"tooltip\":\"\"}"
 fi

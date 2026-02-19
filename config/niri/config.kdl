@@ -9,7 +9,8 @@ spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
 spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
 spawn-sh-at-startup "waypaper --restore"
 spawn-at-startup "udiskie"
-spawn-at-startup "eww open playerinfo"
+spawn-sh-at-startup "eww daemon && eww open playerinfo"
+spawn-sh-at-startup "eww open playerinfo"
 
 // input device configuration
 input {
@@ -62,13 +63,17 @@ layout {
 	default-column-width { proportion 0.5; }
 
 	focus-ring {
-		width 2
-		active-color "#c9b03eff"
-		// active-color "#404042ff"
+		width 5
+		active-color "#DEDDDAff"
 		inactive-color "#83858a00"
 	}
 
-	border { off; }
+	border {
+		on
+		width 4
+		active-color "#202020ff"
+		inactive-color "#20202000"
+	}
 
 	shadow {
 		on
@@ -79,7 +84,14 @@ layout {
 	}
 
 	insert-hint {
-		color "#ffc87f80"
+		color "#202020af"
+	}
+
+	struts {
+		left 40
+		right 40
+		top 10
+		bottom 10
 	}
 }
 
@@ -249,7 +261,7 @@ window-rule {
 }
 
 window-rule {
-	match app-id="^Nautilus$"
+	match app-id="^gimp"
 
 	block-out-from "screencast"
 }

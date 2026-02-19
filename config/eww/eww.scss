@@ -1,15 +1,36 @@
 * {
   all: unset;
   padding: 3px;
-  color: #000000;
   font-family: "UDEV Gothic";
   font-weight: 100;
 }
 
 .title {
+  color: #000000;
   font-size: 25px;
 }
 
 .artist {
+  color: #000000;
   font-size: 15px;
+}
+
+.count {
+  color: #9D1516;
+  font-size: 50px;
+  text-shadow: 0 0 20px #9D1516;
+}
+
+.stext {
+  color: #ffffff;
+  font-size: 15px;
+  text-shadow: 0px 0px 10px #ffffff;
+  font-style: oblique;
+}
+
+.deathbox {
+  background: #000000;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #9D1516;
 }
